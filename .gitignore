@@ -1,0 +1,6 @@
+/out/
+/outputs/
+/work/
+/data/
+*.class
+*.tmp
