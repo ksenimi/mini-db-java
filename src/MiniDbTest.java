@@ -1,6 +1,5 @@
 import java.nio.file.*;
 
-/** Функциональные тесты и воспроизводимое измерение скорости индекса без внешних библиотек. */
 public final class MiniDbTest {
     private MiniDbTest() { }
 

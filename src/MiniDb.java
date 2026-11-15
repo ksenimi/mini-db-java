@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.*;
 
-/** Точка входа консольной СУБД и интерпретатор простого SQL-подобного языка. */
 public final class MiniDb {
     private MiniDb() { }
 
@@ -40,7 +39,6 @@ public final class MiniDb {
         }
     }
 
-    /** Разделяет завершённые запросы; точка с запятой внутри строки остаётся частью данных. */
     static List<String> splitStatements(String input) {
         List<String> out = new ArrayList<>();
         boolean quoted = false;
@@ -88,7 +86,6 @@ public final class MiniDb {
         }
     }
 
-    /** Таблица хранит строки в порядке вставки с доступом по первичному ключу. */
     static final class Table implements Serializable {
         private static final long serialVersionUID = 1L;
         final String name, primaryKey;
@@ -107,7 +104,6 @@ public final class MiniDb {
         }
     }
 
-    /** Индекс для поиска по равенству, сохраняемый вместе с таблицами. */
     static final class Index implements Serializable {
         private static final long serialVersionUID = 1L;
         final String name, table, column;
@@ -126,7 +122,6 @@ public final class MiniDb {
         final LinkedHashMap<String, Index> indexes = new LinkedHashMap<>();
     }
 
-    /** Репозиторий: каждое успешное изменение заменяет сохранённый снимок базы данных. */
     public static final class Database {
         private final Path file;
         private State state;
@@ -434,7 +429,7 @@ public final class MiniDb {
                 case DATE: if (quoted) return LocalDate.parse(plain); break;
                 case BOOLEAN: if (!quoted && (plain.equalsIgnoreCase("TRUE") || plain.equalsIgnoreCase("FALSE"))) return Boolean.valueOf(plain); break;
             }
-        } catch (NumberFormatException | DateTimeParseException ex) { /* Сообщение об ошибке формируется ниже. */ }
+        } catch (NumberFormatException | DateTimeParseException ex) { }
         throw new IllegalArgumentException("Неверное значение типа " + kind + ": " + value);
     }
 
